@@ -4,7 +4,6 @@ import {User} from "../models/user.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import jwt from "jsonwebtoken";
-import { use } from "react";
 import mongoose from "mongoose";
 
 //function to generate Access token & Refresh token.
@@ -51,7 +50,7 @@ const registerUser = asyncHandler( async (req, res)=>
     10. return response
        */
 
-    const {fullName, email, userName, password} = req.body
+    const {fullName, email, userName, password, house} = req.body
     //   console.log("email:", email);
 
     //   if (fullName === "") {
@@ -62,6 +61,13 @@ const registerUser = asyncHandler( async (req, res)=>
         [fullName, email, userName, password].some((field)=> field?.trim() === "")
     ) {
         throw new ApiError(400, "All fields are required")
+    }
+
+    const allowedHouses = ["stark", "lannister", "targaryen", "baratheon", "greyjoy", "tyrell", "martell", "arryn"]
+    const swornHouse = house?.toLowerCase() || "stark"
+
+    if (!allowedHouses.includes(swornHouse)) {
+        throw new ApiError(400, "Invalid house selected")
     }
     const existedUser =  await User.findOne({
         $or: [{userName },{ email }]
@@ -97,6 +103,7 @@ const user = await User.create({
     coverImg: coverImg?.url || "",
     email,
     password,
+    house: swornHouse,
     userName: userName.toLowerCase()
 })
 
@@ -431,6 +438,7 @@ const getUserChannelProfile = asyncHandler( async (req,res) =>
                 avatar: 1,
                 coverImg: 1,
                 email:1,
+                house:1,
 
             }
         }
@@ -473,7 +481,8 @@ const getWatchHistory = asyncHandler(async (req, res) => {
                                     project: {
                                         fullName: 1,
                                         userName: 1,
-                                        avatar: 1
+                                        avatar: 1,
+                                        house: 1
                                     }
                                 }
                             ]

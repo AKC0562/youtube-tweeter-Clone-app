@@ -1,3 +1,19 @@
 node_modules/
 
 .env
+
+# logs
+logs/
+*.log
+npm-debug.log*
+
+# multer upload staging (directory itself is kept via .gitkeep)
+public/temp/*
+
+# OS / editors
+.DS_Store
+.vscode/*
+.idea/
+
+# test coverage
+coverage/

@@ -34,6 +34,11 @@ const userSchema = new Schema({
     coverImage: {
         type: String
     },
+    house: {
+        type: String,
+        enum: ["stark", "lannister", "targaryen", "baratheon", "greyjoy", "tyrell", "martell", "arryn"],
+        default: "stark"
+    },
     watchHistory: [
         {
             type: Schema.Types.ObjectId,

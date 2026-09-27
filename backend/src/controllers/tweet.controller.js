@@ -41,7 +41,7 @@ const getUserTweets = asyncHandler(async (req, res) => {
         throw new ApiError(404, "User doesn`t exists")
     }
 
-    const tweets = await Tweet.find({owner: userId}).sort({createdAt: -1})
+    const tweets = await Tweet.find({owner: userId}).populate("owner", "userName fullName avatar house").sort({createdAt: -1})
 
     return res
     .status(200)

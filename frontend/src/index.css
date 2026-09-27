@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "Cinzel", "Times New Roman", Georgia, serif;
+
+  --color-night-950: #0b0906;
+  --color-night-900: #12100b;
+  --color-night-850: #171410;
+  --color-night-800: #1e1a13;
+  --color-night-700: #2b2519;
+  --color-night-600: #3d3524;
+
+  --color-parchment-100: #f0e7d0;
+  --color-parchment-300: #d6c8a4;
+  --color-parchment-500: #a2946f;
+  --color-parchment-600: #7d7257;
+
+  --color-gold-300: #e6cb85;
+  --color-gold-400: #d9b45c;
+  --color-gold-500: #c9a227;
+  --color-gold-600: #9c7c1c;
+  --color-gold-700: #6f5812;
+
+  --color-blood-500: #a83232;
+  --color-blood-600: #862424;
+  --color-blood-700: #651a1a;
+}
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: #0b0906;
+  color: #f0e7d0;
+}
+
+::selection {
+  background: #c9a227;
+  color: #0b0906;
+}
+
+/* thin scrollbars for rails */
+.rail-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.rail-scroll::-webkit-scrollbar-thumb {
+  background: #3d3524;
+  border-radius: 8px;
+}
+.rail-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* upload progress */
+@keyframes uploadbar {
+  from { width: 8%; }
+  to { width: 96%; }
+}
+.uploading-bar {
+  animation: uploadbar 8s ease-out forwards;
+}
+
+input[type="file"]::file-selector-button {
+  font: inherit;
+}
+
+/* candle-flicker dot for live / notification accents */
+@keyframes ember {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.ember-dot {
+  animation: ember 1.6s ease-in-out infinite;
+}

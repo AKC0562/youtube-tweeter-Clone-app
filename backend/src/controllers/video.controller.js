@@ -67,7 +67,8 @@ const getAllVideos = asyncHandler(async (req, res) => {
                         $project: {
                             userName: 1,
                             fullName: 1,
-                            avatar: 1
+                            avatar: 1,
+                            house: 1
                         }
                     }
                 ]
@@ -156,7 +157,7 @@ const getVideoById = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Invalid video id")
     }
 
-    const video = await Video.findById(videoId).populate("owner", "userName fullName avatar")
+    const video = await Video.findById(videoId).populate("owner", "userName fullName avatar house")
 
     if (!video) {
         throw new ApiError(404, "Video doesn`t exists")
